@@ -3,8 +3,7 @@
         <div class="row justify-content-center">
 
             <div class="col-lg-4 col-md-6" data-animation="fadeInUp">
-                <a href="{{route('index_page')}}" class="logo">
-                    <img src="images/vizwizzlogo.png" alt="">
+                    <img src="{{asset('images/logo-white.png')}}" alt="">
 
                 </a>
                 <p>
@@ -82,7 +81,7 @@
                                 <i class="fa fa-envelope"></i>
                             </div>
                             <p>
-                                <a href="#">conabicom@example.com</a>
+                                <a href="#">info@vizwizz.com</a>
                             </p>
                         </li>
                     </ul>
@@ -92,4 +91,17 @@
         </div>
     </div>
 </footer>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/5ccaa2ded07d7e0c6391897c/default';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+    })();
+</script>
+<!--End of Tawk.to Script-->
 

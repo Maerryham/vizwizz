@@ -15,12 +15,15 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email');
-            $table->string('number');
-            $table->text('message');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->text('address');
+            $table->integer('phone');
             $table->text('products');
-            $table->enum('status', ['pending','accepted','completed'])->default('pending');
+            $table->string('email');
+            $table->string('additional_information');
+            $table->string('reference');
+            $table->enum('status', ['pending','payment_accepted','payment_failed','accepted','completed'])->default('pending');
             $table->timestamps();
         });
     }

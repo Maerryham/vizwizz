@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected $fillable =[
-        'name', 'number', 'email', 'message', 'products'
+        'user_id', 'first_name', 'last_name','address', 'phone', 'email', 'products','subtotal','delivery_fee','total', 'reference','additional_information'
     ];
 
     public function setProductsAttribute($value){

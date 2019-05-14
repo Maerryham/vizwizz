@@ -15,7 +15,7 @@
     <div class="flexslider">
         <ul class="slides">
             <li class="ds cover-image s-overlay text-left">
-                <img src="images/slide01.jpg" alt="img">
+                <img src="images/slide01.png" alt="img">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -40,7 +40,7 @@
                 </div><!-- eof .container-fluid -->
             </li>
             <li class="ds cover-image s-overlay text-left">
-                <img src="images/slide02.jpg" alt="img">
+                <img src="images/slide02.png" alt="img">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -65,7 +65,7 @@
                 </div><!-- eof .container-fluid -->
             </li>
             <li class="ds cover-image s-overlay text-left">
-                <img src="images/slide03.jpg" alt="img">
+                <img src="images/slider03.jpg" alt="img">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -197,203 +197,61 @@
 
                             <div class="col-12 columns-3">
                                 <ul class="products">
-                                    <li class="product">
-                                        <a class="woocommerce-LoopProduct-link" href="#">
-                                            <img src="images/shop/01.jpg" alt="">
-                                            <h2>ShiSha oil cbd bottle</h2>
-                                            <div class="star-rating">
-                                                <span style="width:80%">Rated <strong class="rating">4.00</strong> out of 5</span>
-                                            </div>
-                                            <div class="product-description-short">
-                                                <p>
-                                                    <span>Category:</span>
-                                                    <span><strong>Tobacco</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>Brand:</span>
-                                                    <span><strong>StarBurst</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>Flavor:</span>
-                                                    <span><strong>Apple</strong></span>
-                                                </p>
-                                            </div>
-                                            <span class="price">
-															<del>
-																<span>
-																	<span>&#8358;</span>15.00
-																</span>
-															</del>
+
+                                    @foreach($products as $product)
+                                        <li class="product">
+                                            <a class="woocommerce-LoopProduct-link" href="#">
+                                                <img src="images/shop/{{$product->image_link}}" alt="">
+                                                <h2>{{$product->title}}</h2>
+                                                <div class="star-rating">
+                                                    <span style="width:80%">Rated <strong class="rating">4.00</strong> out of 5</span>
+                                                </div>
+                                                <div class="product-description-short">
+                                                    <p>
+                                                        <span>Category:</span>
+                                                        <span><strong>{{$product->category->category_name}}</strong></span>
+                                                    </p>
+
+                                                    <p>
+                                                <span>
+                                                    @php
+                                                        if($product->category_id == 2){
+                                                           $brand = "Brand:";
+                                                             }else{
+                                                            $brand = "Size:";
+                                                        }
+                                                    @endphp
+                                                    {{$brand}}
+                                                    <span><strong> {{$product->brand->brand_name}} </strong></span></span>
+                                                    </p>
+
+                                                    @if($product->flavor != '')
+                                                        <p>
+                                                            <span>Flavor:</span>
+                                                            <span><strong>{{$product->flavor}}</strong></span>
+                                                        </p>
+                                                    @endif
+                                                </div>
+                                                <span class="price">
+															{{--<del>--}}
+                                                    {{--<span>--}}
+                                                    {{--<span>&#8358;</span>15.00--}}
+                                                    {{--</span>--}}
+                                                    {{--</del>--}}
 															<ins>
 																<span>
-																	<span>&#8358;</span>12.00
+																	<span>&#8358;</span>{{$product->price}}
 																</span>
 															</ins>
 														</span>
-                                        </a>
-                                        <button rel="nofollow" data-id="1" class="button product_type_simple add_to_cart_button  add-to-cart">Add to cart</button>
-                                        <a href="cart.html" class="added_to_cart wc-forward" title="View cart">View cart</a>
-                                    </li>
+                                            </a>
+                                            <button rel="nofollow" style="cursor:pointer" data-id="{{$product->id}}" class="button product_type_simple add_to_cart_button  add-to-cart">Add to cart</button>
+                                            <a href="{{route('shopping-cart')}}" class="added_to_cart wc-forward" title="View cart">View cart</a>
+                                        </li>
+                                    @endforeach
 
 
-                                    <li class="product">
-                                        <a class="woocommerce-LoopProduct-link" href="shop-product-left.html">
-                                            <img src="images/shop/02.jpg" alt="">
-                                            <h2>Medical ShiSha extract</h2>
-                                            <div class="star-rating">
-                                                <span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5</span>
-                                            </div>
-                                            <div class="product-description-short">
-                                                <p>
-                                                    <span>Type:</span>
-                                                    <span><strong>Indica</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>CBD:</span>
-                                                    <span><strong>11%</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>THC:</span>
-                                                    <span><strong>30%</strong></span>
-                                                </p>
-                                            </div>
-                                            <span class="price">
-															<span>
-																<span>$</span>18.00
-															</span>
-														</span>
-                                        </a>
-                                        {{--<a rel="nofollow" href="shop-cart.html" class="button product_type_simple add_to_cart_button">Add to cart</a>--}}
-                                        <button rel="nofollow" data-id="2" class="button product_type_simple add_to_cart_button  add-to-cart">Add to cart</button>
-                                    </li>
 
-
-                                    <li class="product">
-                                        <a class="woocommerce-LoopProduct-link" href="shop-product-left.html">
-                                            <img src="images/shop/03.jpg" alt="">
-                                            <h2>ShiSha oil cbd bottle</h2>
-                                            <div class="star-rating">
-                                                <span style="width:60%">Rated <strong class="rating">3.00</strong> out of 5</span>
-                                            </div>
-                                            <div class="product-description-short">
-                                                <p>
-                                                    <span>Type:</span>
-                                                    <span><strong>Indica</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>CBD:</span>
-                                                    <span><strong>11%</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>THC:</span>
-                                                    <span><strong>30%</strong></span>
-                                                </p>
-                                            </div>
-                                            <span class="price">
-															<span>
-																<span>$</span>35.00
-															</span>
-														</span>
-                                        </a>
-                                        {{--<a rel="nofollow" href="shop-cart.html" class="button product_type_simple add_to_cart_button">Add to cart</a>--}}
-                                        <button rel="nofollow" data-id="3" class="button product_type_simple add_to_cart_button  add-to-cart">Add to cart</button>
-                                    </li>
-
-
-                                    <li class="product">
-                                        <a class="woocommerce-LoopProduct-link" href="shop-product-left.html">
-                                            <img src="images/shop/04.jpg" alt="">
-                                            <h2>ShiSha oil cbd bottle</h2>
-                                            <div class="star-rating">
-                                                <span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5</span>
-                                            </div>
-                                            <div class="product-description-short">
-                                                <p>
-                                                    <span>Type:</span>
-                                                    <span><strong>Indica</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>CBD:</span>
-                                                    <span><strong>11%</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>THC:</span>
-                                                    <span><strong>30%</strong></span>
-                                                </p>
-                                            </div>
-                                            <span class="price">
-															<span>
-																<span>$</span>20.00
-															</span>
-														</span>
-                                        </a>
-                                        {{--<a rel="nofollow" href="shop-cart.html" class="button product_type_simple add_to_cart_button">Add to cart</a>--}}
-                                        <button rel="nofollow" data-id="4" class="button product_type_simple add_to_cart_button  add-to-cart">Add to cart</button>
-                                    </li>
-
-
-                                    <li class="product">
-                                        <a class="woocommerce-LoopProduct-link" href="shop-product-left.html">
-                                            <img src="images/shop/05.jpg" alt="">
-                                            <h2>Medical ShiSha extract</h2>
-                                            <div class="star-rating">
-                                                <span style="width:80%">Rated <strong class="rating">4.00</strong> out of 5</span>
-                                            </div>
-                                            <div class="product-description-short">
-                                                <p>
-                                                    <span>Type:</span>
-                                                    <span><strong>Indica</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>CBD:</span>
-                                                    <span><strong>11%</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>THC:</span>
-                                                    <span><strong>30%</strong></span>
-                                                </p>
-                                            </div>
-                                            <span class="price">
-															<span>
-																<span>$</span>35.00
-															</span>
-														</span>
-                                        </a>
-                                        {{--<a rel="nofollow" href="shop-cart.html" class="button product_type_simple add_to_cart_button">Add to cart</a>--}}
-                                        <button rel="nofollow" data-id="5" class="button product_type_simple add_to_cart_button  add-to-cart">Add to cart</button>
-                                    </li>
-
-
-                                    <li class="product">
-                                        <a class="woocommerce-LoopProduct-link" href="shop-product-left.html">
-                                            <img src="images/shop/06.jpg" alt="">
-                                            <h2>ShiSha oil cbd bottle</h2>
-                                            <div class="star-rating">
-                                                <span style="width:93.4%">Rated <strong class="rating">4.67</strong> out of 5</span>
-                                            </div>
-                                            <div class="product-description-short">
-                                                <p>
-                                                    <span>Type:</span>
-                                                    <span><strong>Indica</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>CBD:</span>
-                                                    <span><strong>11%</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>THC:</span>
-                                                    <span><strong>30%</strong></span>
-                                                </p>
-                                            </div>
-                                            <span class="price">
-															<span>
-																<span>$</span>35.00
-															</span>
-														</span>
-                                        </a>
-                                        {{--<a rel="nofollow" href="shop-cart.html" class="button product_type_simple add_to_cart_button">Add to cart</a>--}}
-                                        <button rel="nofollow" data-id="6" class="button product_type_simple add_to_cart_button  add-to-cart">Add to cart</button>
-                                    </li>
 
                                 </ul>
                             </div>
@@ -404,205 +262,58 @@
 
                             <div class="col-12 columns-3">
                                 <ul class="products">
-                                    <li class="product">
-                                        <a class="woocommerce-LoopProduct-link" href="shop-product-left.html">
-                                            <img src="images/shop/01.jpg" alt="">
-                                            <h2>ShiSha oil cbd bottle</h2>
-                                            <div class="star-rating">
-                                                <span style="width:80%">Rated <strong class="rating">4.00</strong> out of 5</span>
-                                            </div>
-                                            <div class="product-description-short">
-                                                <p>
-                                                    <span>Type:</span>
-                                                    <span><strong>Indica</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>CBD:</span>
-                                                    <span><strong>11%</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>THC:</span>
-                                                    <span><strong>30%</strong></span>
-                                                </p>
-                                            </div>
-                                            <span class="price">
-															<del>
-																<span>
-																	<span>$</span>15.00
-																</span>
-															</del>
+                                    {{--Shisha Pots--}}
+                                    @foreach($product2 as $product)
+                                        <li class="product">
+                                            <a class="woocommerce-LoopProduct-link" href="#">
+                                                <img src="images/shop/{{$product->image_link}}" alt="">
+                                                <h2>{{$product->title}}</h2>
+                                                <div class="star-rating">
+                                                    <span style="width:80%">Rated <strong class="rating">4.00</strong> out of 5</span>
+                                                </div>
+                                                <div class="product-description-short">
+                                                    <p>
+                                                        <span>Category:</span>
+                                                        <span><strong>{{$product->category->category_name}}</strong></span>
+                                                    </p>
+
+                                                    <p>
+                                                <span>
+                                                    @php
+                                                        if($product->category_id == 2){
+                                                           $brand = "Brand:";
+                                                             }else{
+                                                            $brand = "Size:";
+                                                        }
+                                                    @endphp
+                                                    {{$brand}}
+                                                    <span><strong> {{$product->brand->brand_name}} </strong></span></span>
+                                                    </p>
+
+                                                    @if($product->flavor != '')
+                                                        <p>
+                                                            <span>Flavor:</span>
+                                                            <span><strong>{{$product->flavor}}</strong></span>
+                                                        </p>
+                                                    @endif
+                                                </div>
+                                                <span class="price">
+															{{--<del>--}}
+                                                    {{--<span>--}}
+                                                    {{--<span>&#8358;</span>15.00--}}
+                                                    {{--</span>--}}
+                                                    {{--</del>--}}
 															<ins>
 																<span>
-																	<span>$</span>12.00
+																	<span>&#8358;</span>{{$product->price}}
 																</span>
 															</ins>
 														</span>
-                                        </a>
-                                        {{--<a rel="nofollow" href="shop-cart.html" class="button product_type_simple add_to_cart_button">Add to cart</a>--}}
-                                        <button rel="nofollow" data-id="7" class="button product_type_simple add_to_cart_button  add-to-cart">Add to cart</button>
-                                        <a href="cart.html" class="added_to_cart wc-forward" title="View cart">View cart</a>
-                                    </li>
-
-
-                                    <li class="product">
-                                        <a class="woocommerce-LoopProduct-link" href="shop-product-left.html">
-                                            <img src="images/shop/02.jpg" alt="">
-                                            <h2>Medical ShiSha extract</h2>
-                                            <div class="star-rating">
-                                                <span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5</span>
-                                            </div>
-                                            <div class="product-description-short">
-                                                <p>
-                                                    <span>Type:</span>
-                                                    <span><strong>Indica</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>CBD:</span>
-                                                    <span><strong>11%</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>THC:</span>
-                                                    <span><strong>30%</strong></span>
-                                                </p>
-                                            </div>
-                                            <span class="price">
-															<span>
-																<span>$</span>18.00
-															</span>
-														</span>
-                                        </a>
-                                        {{--<a rel="nofollow" href="shop-cart.html" class="button product_type_simple add_to_cart_button">Add to cart</a>--}}
-                                        <button rel="nofollow" data-id="8" class="button product_type_simple add_to_cart_button  add-to-cart">Add to cart</button>
-                                    </li>
-
-
-                                    <li class="product">
-                                        <a class="woocommerce-LoopProduct-link" href="shop-product-left.html">
-                                            <img src="images/shop/03.jpg" alt="">
-                                            <h2>ShiSha oil cbd bottle</h2>
-                                            <div class="star-rating">
-                                                <span style="width:60%">Rated <strong class="rating">3.00</strong> out of 5</span>
-                                            </div>
-                                            <div class="product-description-short">
-                                                <p>
-                                                    <span>Type:</span>
-                                                    <span><strong>Indica</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>CBD:</span>
-                                                    <span><strong>11%</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>THC:</span>
-                                                    <span><strong>30%</strong></span>
-                                                </p>
-                                            </div>
-                                            <span class="price">
-															<span>
-																<span>$</span>35.00
-															</span>
-														</span>
-                                        </a>
-                                        <a rel="nofollow" href="shop-cart.html" class="button product_type_simple add_to_cart_button">Add to cart</a>
-                                        <button rel="nofollow" data-id="9" class="button product_type_simple add_to_cart_button  add-to-cart">Add to cart</button>
-                                    </li>
-
-
-                                    <li class="product">
-                                        <a class="woocommerce-LoopProduct-link" href="shop-product-left.html">
-                                            <img src="images/shop/04.jpg" alt="">
-                                            <h2>ShiSha oil cbd bottle</h2>
-                                            <div class="star-rating">
-                                                <span style="width:100%">Rated <strong class="rating">5.00</strong> out of 5</span>
-                                            </div>
-                                            <div class="product-description-short">
-                                                <p>
-                                                    <span>Type:</span>
-                                                    <span><strong>Indica</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>CBD:</span>
-                                                    <span><strong>11%</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>THC:</span>
-                                                    <span><strong>30%</strong></span>
-                                                </p>
-                                            </div>
-                                            <span class="price">
-															<span>
-																<span>$</span>20.00
-															</span>
-														</span>
-                                        </a>
-                                        <a rel="nofollow" href="shop-cart.html" class="button product_type_simple add_to_cart_button">Add to cart</a>
-                                        <button rel="nofollow" data-id="10" class="button product_type_simple add_to_cart_button  add-to-cart">Add to cart</button>
-                                    </li>
-
-
-                                    <li class="product">
-                                        <a class="woocommerce-LoopProduct-link" href="shop-product-left.html">
-                                            <img src="images/shop/05.jpg" alt="">
-                                            <h2>Medical ShiSha extract</h2>
-                                            <div class="star-rating">
-                                                <span style="width:80%">Rated <strong class="rating">4.00</strong> out of 5</span>
-                                            </div>
-                                            <div class="product-description-short">
-                                                <p>
-                                                    <span>Type:</span>
-                                                    <span><strong>Indica</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>CBD:</span>
-                                                    <span><strong>11%</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>THC:</span>
-                                                    <span><strong>30%</strong></span>
-                                                </p>
-                                            </div>
-                                            <span class="price">
-															<span>
-																<span>$</span>35.00
-															</span>
-														</span>
-                                        </a>
-                                        {{--<a rel="nofollow" href="shop-cart.html" class="button product_type_simple add_to_cart_button">Add to cart</a>--}}
-                                        <button rel="nofollow" data-id="11" class="button product_type_simple add_to_cart_button  add-to-cart">Add to cart</button>
-                                    </li>
-
-
-
-                                    <li class="product">
-                                        <a class="woocommerce-LoopProduct-link" href="shop-product-left.html">
-                                            <img src="images/shop/06.jpg" alt="">
-                                            <h2>ShiSha oil cbd bottle</h2>
-                                            <div class="star-rating">
-                                                <span style="width:93.4%">Rated <strong class="rating">4.67</strong> out of 5</span>
-                                            </div>
-                                            <div class="product-description-short">
-                                                <p>
-                                                    <span>Type:</span>
-                                                    <span><strong>Indica</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>CBD:</span>
-                                                    <span><strong>11%</strong></span>
-                                                </p>
-                                                <p>
-                                                    <span>THC:</span>
-                                                    <span><strong>30%</strong></span>
-                                                </p>
-                                            </div>
-                                            <span class="price">
-                                                <span>
-                                                    <span>$</span>35.00
-                                                </span>
-                                            </span>
-                                        </a>
-                                        {{--<a rel="nofollow" href="shop-cart.html" class="button product_type_simple add_to_cart_button">Add to cart</a>--}}
-                                        <button rel="nofollow" data-id="12" class="button product_type_simple add_to_cart_button  add-to-cart">Add to cart</button>
-                                    </li>
+                                            </a>
+                                            <button rel="nofollow" style="cursor:pointer" data-id="{{$product->id}}" class="button product_type_simple add_to_cart_button  add-to-cart">Add to cart</button>
+                                            <a href="{{route('shopping-cart')}}" class="added_to_cart wc-forward" title="View cart">View cart</a>
+                                        </li>
+                                    @endforeach
 
                                 </ul>
                             </div>
@@ -612,37 +323,39 @@
                         <div class="tab-pane fade" id="tab03_pane" role="tabpanel" aria-labelledby="tab03">
 
                             <div class="col-12 columns-3">
-                                <h4 class="special-heading text-center text-capitalize">Request Form</h4>
-                                <form class="contact-form content-center c-mb-20 c-gutter-10" method="post" style="width:80% !important;" action="http://webdesign-finder.com/">
-
+                                <p class="special-heading text-center">You want to Order from us in Bulk?</p>
+                                <div class="divider-50 hidden-below-md"></div>
+                                <div class="divider-20 hidden-above-md"></div>
+                                <form class="group-bookings content-center c-mb-40 c-gutter-20" method="post" action="#">
+                                    @csrf
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group has-placeholder">
-                                                <label for="name7777">Full Name <span class="required">*</span></label>
+                                                <label for="name444">Full Name <span class="required">*</span></label>
 
-                                                <input type="text" aria-required="true" size="30" value="" name="name" id="name7777" class="form-control" placeholder="Name">
+                                                <input type="text" aria-required="true" size="30" name="name" id="name444" class="form-control" placeholder="Name">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group has-placeholder">
-                                                <label for="email7777">Email address<span class="required">*</span></label>
+                                                <label for="email444">Email address<span class="required">*</span></label>
 
-                                                <input type="email" aria-required="true" size="30" value="" name="email" id="email7777" class="form-control" placeholder="Email">
+                                                <input type="email" aria-required="true" size="30" name="email" id="email444" class="form-control" placeholder="Email">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12 mb-0">
                                             <div class="form-group has-placeholder">
-                                                <label for="message77777">Message</label>
-                                                <textarea aria-required="true" rows="3" cols="45" name="message" id="message77777" class="form-control" placeholder="Message"></textarea>
+                                                <label for="message444">Message</label>
+                                                <textarea aria-required="true" rows="3" cols="45" name="message" id="message444" class="form-control" placeholder="Message"></textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12 text-center">
                                             <div class="form-group">
-                                                <input class="btn btn-maincolor" type="submit" value="Send Message">
+                                                <input class="btn btn-maincolor" type="submit" value="Place Order">
                                             </div>
                                         </div>
                                     </div>
@@ -870,199 +583,199 @@
     </div>
 </section>
 
-<section class="ls s-py-0 c-gutter-0 container-px-0 text-center text-sm-left">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <h6 class="special-heading sub-title text-center"><span>legalized medical ShiSha</span></h6>
-                <h2 class="special-heading text-center">Medical ShiSha FAQ</h2>
-                <div class="divider-50 hidden-below-md"></div>
-                <div class="divider-30 hidden-above-md"></div>
-            </div>
-        </div>
-        <div class="row ">
-            <div class="col-lg-6 py-xl-150 py-lg-130 py-md-90 py-60 ls ms">
-                <div class="content-center">
-                    <div id="accordion01" role="tablist">
-                        <h6 class="title-accordion">What is medical ShiSha?</h6>
-                        <div class="card">
-                            <div class="card-header" role="tab" id="collapse01_header">
-                                <h5>
-                                    <a class="collapsed" data-toggle="collapse" href="#collapse01" aria-expanded="true" aria-controls="collapse01">
-                                        What does Your Company Consulting do?
-                                    </a>
-                                </h5>
-                            </div>
+{{--<section class="ls s-py-0 c-gutter-0 container-px-0 text-center text-sm-left">--}}
+    {{--<div class="container-fluid">--}}
+        {{--<div class="row">--}}
+            {{--<div class="col-12">--}}
+                {{--<h6 class="special-heading sub-title text-center"><span>legalized medical ShiSha</span></h6>--}}
+                {{--<h2 class="special-heading text-center">Medical ShiSha FAQ</h2>--}}
+                {{--<div class="divider-50 hidden-below-md"></div>--}}
+                {{--<div class="divider-30 hidden-above-md"></div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="row ">--}}
+            {{--<div class="col-lg-6 py-xl-150 py-lg-130 py-md-90 py-60 ls ms">--}}
+                {{--<div class="content-center">--}}
+                    {{--<div id="accordion01" role="tablist">--}}
+                        {{--<h6 class="title-accordion">What is medical ShiSha?</h6>--}}
+                        {{--<div class="card">--}}
+                            {{--<div class="card-header" role="tab" id="collapse01_header">--}}
+                                {{--<h5>--}}
+                                    {{--<a class="collapsed" data-toggle="collapse" href="#collapse01" aria-expanded="true" aria-controls="collapse01">--}}
+                                        {{--What does Your Company Consulting do?--}}
+                                    {{--</a>--}}
+                                {{--</h5>--}}
+                            {{--</div>--}}
 
-                            <div id="collapse01" class="collapse" role="tabpanel" aria-labelledby="collapse01_header" data-parent="#accordion01">
-                                <div class="card-body">
-                                    <p>We help entrepreneurs get ready to raise capital. This usually consists of some or all of the following services:</p>
-                                </div>
-                            </div>
-                        </div>
+                            {{--<div id="collapse01" class="collapse" role="tabpanel" aria-labelledby="collapse01_header" data-parent="#accordion01">--}}
+                                {{--<div class="card-body">--}}
+                                    {{--<p>We help entrepreneurs get ready to raise capital. This usually consists of some or all of the following services:</p>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
-                        <div class="card">
-                            <div class="card-header" role="tab" id="collapse02_header">
-                                <h5>
-                                    <a class="collapsed" data-toggle="collapse" href="#collapse02" aria-expanded="false" aria-controls="collapse02">
-                                        What industries do you specialize in?
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapse02" class="collapse" role="tabpanel" aria-labelledby="collapse02_header" data-parent="#accordion01">
-                                <div class="card-body">
-                                    Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                </div>
-                            </div>
-                        </div>
+                        {{--<div class="card">--}}
+                            {{--<div class="card-header" role="tab" id="collapse02_header">--}}
+                                {{--<h5>--}}
+                                    {{--<a class="collapsed" data-toggle="collapse" href="#collapse02" aria-expanded="false" aria-controls="collapse02">--}}
+                                        {{--What industries do you specialize in?--}}
+                                    {{--</a>--}}
+                                {{--</h5>--}}
+                            {{--</div>--}}
+                            {{--<div id="collapse02" class="collapse" role="tabpanel" aria-labelledby="collapse02_header" data-parent="#accordion01">--}}
+                                {{--<div class="card-body">--}}
+                                    {{--Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
-                        <div class="card">
-                            <div class="card-header" role="tab" id="collapse04_header">
-                                <h5>
-                                    <a class="collapsed" data-toggle="collapse" href="#collapse04" aria-expanded="false" aria-controls="collapse04">
-                                        Can you guarantee that our plan will raise capital?
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapse04" class="collapse" role="tabpanel" aria-labelledby="collapse04_header" data-parent="#accordion01">
-                                <div class="card-body">
-                                    Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable sunt aliqua put a bird on it squid single-origin coffee shoreditch et.
-                                </div>
-                            </div>
-                        </div>
+                        {{--<div class="card">--}}
+                            {{--<div class="card-header" role="tab" id="collapse04_header">--}}
+                                {{--<h5>--}}
+                                    {{--<a class="collapsed" data-toggle="collapse" href="#collapse04" aria-expanded="false" aria-controls="collapse04">--}}
+                                        {{--Can you guarantee that our plan will raise capital?--}}
+                                    {{--</a>--}}
+                                {{--</h5>--}}
+                            {{--</div>--}}
+                            {{--<div id="collapse04" class="collapse" role="tabpanel" aria-labelledby="collapse04_header" data-parent="#accordion01">--}}
+                                {{--<div class="card-body">--}}
+                                    {{--Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable sunt aliqua put a bird on it squid single-origin coffee shoreditch et.--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
-                        <div class="card">
-                            <div class="card-header" role="tab" id="collapse05_header">
-                                <h5>
-                                    <a class="collapsed" data-toggle="collapse" href="#collapse05" aria-expanded="false" aria-controls="collapse05">
-                                        What industries do you specialize in?
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapse05" class="collapse" role="tabpanel" aria-labelledby="collapse05_header" data-parent="#accordion01">
-                                <div class="card-body">
-                                    Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                </div>
-                            </div>
-                        </div>
+                        {{--<div class="card">--}}
+                            {{--<div class="card-header" role="tab" id="collapse05_header">--}}
+                                {{--<h5>--}}
+                                    {{--<a class="collapsed" data-toggle="collapse" href="#collapse05" aria-expanded="false" aria-controls="collapse05">--}}
+                                        {{--What industries do you specialize in?--}}
+                                    {{--</a>--}}
+                                {{--</h5>--}}
+                            {{--</div>--}}
+                            {{--<div id="collapse05" class="collapse" role="tabpanel" aria-labelledby="collapse05_header" data-parent="#accordion01">--}}
+                                {{--<div class="card-body">--}}
+                                    {{--Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
-                    </div>
+                    {{--</div>--}}
 
-                    <div id="accordion02" role="tablist">
-                        <h6 class="title-accordion">What is medical ShiSha used for?</h6>
-                        <div class="card">
-                            <div class="card-header" role="tab" id="collapse10_header">
-                                <h5>
-                                    <a class="collapsed" data-toggle="collapse" href="#collapse10" aria-expanded="true" aria-controls="collapse10">
-                                        What does Your Company Consulting do?
-                                    </a>
-                                </h5>
-                            </div>
+                    {{--<div id="accordion02" role="tablist">--}}
+                        {{--<h6 class="title-accordion">What is medical ShiSha used for?</h6>--}}
+                        {{--<div class="card">--}}
+                            {{--<div class="card-header" role="tab" id="collapse10_header">--}}
+                                {{--<h5>--}}
+                                    {{--<a class="collapsed" data-toggle="collapse" href="#collapse10" aria-expanded="true" aria-controls="collapse10">--}}
+                                        {{--What does Your Company Consulting do?--}}
+                                    {{--</a>--}}
+                                {{--</h5>--}}
+                            {{--</div>--}}
 
-                            <div id="collapse10" class="collapse" role="tabpanel" aria-labelledby="collapse10_header" data-parent="#accordion02">
-                                <div class="card-body">
+                            {{--<div id="collapse10" class="collapse" role="tabpanel" aria-labelledby="collapse10_header" data-parent="#accordion02">--}}
+                                {{--<div class="card-body">--}}
 
-                                    <p>We help entrepreneurs get ready to raise capital. This usually consists of some or all of the following services:</p>
+                                    {{--<p>We help entrepreneurs get ready to raise capital. This usually consists of some or all of the following services:</p>--}}
 
 
-                                </div>
-                            </div>
-                        </div>
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
-                        <div class="card">
-                            <div class="card-header" role="tab" id="collapse11_header">
-                                <h5>
-                                    <a class="collapsed" data-toggle="collapse" href="#collapse11" aria-expanded="false" aria-controls="collapse11">
-                                        What industries do you specialize in?
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapse11" class="collapse" role="tabpanel" aria-labelledby="collapse11_header" data-parent="#accordion02">
-                                <div class="card-body">
-                                    Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                </div>
-                            </div>
-                        </div>
+                        {{--<div class="card">--}}
+                            {{--<div class="card-header" role="tab" id="collapse11_header">--}}
+                                {{--<h5>--}}
+                                    {{--<a class="collapsed" data-toggle="collapse" href="#collapse11" aria-expanded="false" aria-controls="collapse11">--}}
+                                        {{--What industries do you specialize in?--}}
+                                    {{--</a>--}}
+                                {{--</h5>--}}
+                            {{--</div>--}}
+                            {{--<div id="collapse11" class="collapse" role="tabpanel" aria-labelledby="collapse11_header" data-parent="#accordion02">--}}
+                                {{--<div class="card-body">--}}
+                                    {{--Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
-                        <div class="card">
-                            <div class="card-header" role="tab" id="collapse12_header">
-                                <h5>
-                                    <a class="collapsed" data-toggle="collapse" href="#collapse12" aria-expanded="false" aria-controls="collapse12">
-                                        Can you guarantee that our plan will raise capital?
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapse12" class="collapse" role="tabpanel" aria-labelledby="collapse12_header" data-parent="#accordion02">
-                                <div class="card-body">
-                                    Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable sunt aliqua put a bird on it squid single-origin coffee shoreditch et.
-                                </div>
-                            </div>
-                        </div>
+                        {{--<div class="card">--}}
+                            {{--<div class="card-header" role="tab" id="collapse12_header">--}}
+                                {{--<h5>--}}
+                                    {{--<a class="collapsed" data-toggle="collapse" href="#collapse12" aria-expanded="false" aria-controls="collapse12">--}}
+                                        {{--Can you guarantee that our plan will raise capital?--}}
+                                    {{--</a>--}}
+                                {{--</h5>--}}
+                            {{--</div>--}}
+                            {{--<div id="collapse12" class="collapse" role="tabpanel" aria-labelledby="collapse12_header" data-parent="#accordion02">--}}
+                                {{--<div class="card-body">--}}
+                                    {{--Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable sunt aliqua put a bird on it squid single-origin coffee shoreditch et.--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
-                        <div class="card">
-                            <div class="card-header" role="tab" id="collapse13_header">
-                                <h5>
-                                    <a class="collapsed" data-toggle="collapse" href="#collapse13" aria-expanded="false" aria-controls="collapse13">
-                                        What industries do you specialize in?
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapse13" class="collapse" role="tabpanel" aria-labelledby="collapse13_header" data-parent="#accordion02">
-                                <div class="card-body">
-                                    Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                </div>
-                            </div>
-                        </div>
+                        {{--<div class="card">--}}
+                            {{--<div class="card-header" role="tab" id="collapse13_header">--}}
+                                {{--<h5>--}}
+                                    {{--<a class="collapsed" data-toggle="collapse" href="#collapse13" aria-expanded="false" aria-controls="collapse13">--}}
+                                        {{--What industries do you specialize in?--}}
+                                    {{--</a>--}}
+                                {{--</h5>--}}
+                            {{--</div>--}}
+                            {{--<div id="collapse13" class="collapse" role="tabpanel" aria-labelledby="collapse13_header" data-parent="#accordion02">--}}
+                                {{--<div class="card-body">--}}
+                                    {{--Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
-                    </div>
-                </div>
+                    {{--</div>--}}
+                {{--</div>--}}
 
-            </div>
-            <div class="ds col-lg-6 py-lg-0 py-md-90 py-60 faq-contact column-overlay d-flex align-items-center">
-                <div class="content-center">
-                    <h4 class="special-heading text-center text-capitalize">Contact us</h4>
-                    <p class="special-heading text-center">Have You any Questions? Ask Us!</p>
-                    <div class="divider-50 hidden-below-md"></div>
-                    <div class="divider-35 hidden-above-md"></div>
-                    <form class="contact-form c-mb-40 c-gutter-20" method="post" action="http://webdesign-finder.com/">
+            {{--</div>--}}
+            {{--<div class="ds col-lg-6 py-lg-0 py-md-90 py-60 faq-contact column-overlay d-flex align-items-center">--}}
+                {{--<div class="content-center">--}}
+                    {{--<h4 class="special-heading text-center text-capitalize">Contact us</h4>--}}
+                    {{--<p class="special-heading text-center">Have You any Questions? Ask Us!</p>--}}
+                    {{--<div class="divider-50 hidden-below-md"></div>--}}
+                    {{--<div class="divider-35 hidden-above-md"></div>--}}
+                    {{--<form class="contact-form c-mb-40 c-gutter-20" method="post" action="http://webdesign-finder.com/">--}}
 
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group has-placeholder">
-                                    <label for="name66">Full Name <span class="required">*</span></label>
+                        {{--<div class="row">--}}
+                            {{--<div class="col-sm-12">--}}
+                                {{--<div class="form-group has-placeholder">--}}
+                                    {{--<label for="name66">Full Name <span class="required">*</span></label>--}}
 
-                                    <input type="text" aria-required="true" size="30" value="" name="name" id="name66" class="form-control" placeholder="Name">
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="form-group has-placeholder">
-                                    <label for="email66">Email address<span class="required">*</span></label>
+                                    {{--<input type="text" aria-required="true" size="30" value="" name="name" id="name66" class="form-control" placeholder="Name">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="col-sm-12">--}}
+                                {{--<div class="form-group has-placeholder">--}}
+                                    {{--<label for="email66">Email address<span class="required">*</span></label>--}}
 
-                                    <input type="email" aria-required="true" size="30" value="" name="email66" id="email66" class="form-control" placeholder="Email">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12 mb-0">
-                                <div class="form-group has-placeholder">
-                                    <label for="message">Message</label>
-                                    <textarea aria-required="true" rows="3" cols="45" name="message" id="message" class="form-control" placeholder="Message"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12 text-center">
-                                <div class="form-group">
-                                    <input class="btn btn-maincolor" type="submit" value="Send Message">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+                                    {{--<input type="email" aria-required="true" size="30" value="" name="email66" id="email66" class="form-control" placeholder="Email">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<div class="row">--}}
+                            {{--<div class="col-sm-12 mb-0">--}}
+                                {{--<div class="form-group has-placeholder">--}}
+                                    {{--<label for="message">Message</label>--}}
+                                    {{--<textarea aria-required="true" rows="3" cols="45" name="message" id="message" class="form-control" placeholder="Message"></textarea>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<div class="row">--}}
+                            {{--<div class="col-sm-12 text-center">--}}
+                                {{--<div class="form-group">--}}
+                                    {{--<input class="btn btn-maincolor" type="submit" value="Send Message">--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</form>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+{{--</section>--}}
 
 <section class="ls section-portfolio s-pt-xl-140 s-pt-lg-120 s-pt-md-80 s-pt-50 s-pb-xl-150 s-pb-lg-130 s-pb-md-90 s-pb-60 text-center text-sm-left">
     <div class="container">
@@ -1214,7 +927,8 @@
         <div class="row align-items-center">
             <div class="col-12">
                 <div class="widget section-mailchimp widget_mailchimp">
-                    <form class="signup" action="http://webdesign-finder.com/">
+                    <form class="newsletter" method="post" action="{{route('newsletter/subscribe')}}">
+                        @csrf
                         <input name="email" type="email" class="form-control mailchimp_email" placeholder="Email">
                         <button type="submit" class="search-submit">
                             <span class="screen-reader-text">Subscribe</span>

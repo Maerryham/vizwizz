@@ -25,7 +25,16 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+//    protected $redirectTo = '/home';
+
+    public function redirectTo()
+    {
+        if (session('link')) {
+            $this->redirectTo = session('link');
+        }
+
+        return $this->redirectTo ?? '/home';
+    }
 
     /**
      * Create a new controller instance.
@@ -35,5 +44,12 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }m
+
+    public function showLoginForm()
+    {
+        $title = 'Login';
+        $cart = session()->get('cart');
+        return view('auth.login')->with(['cart'=> $cart,  "title" => 'Login', "page" => 'login']);
     }
 }

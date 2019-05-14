@@ -33,10 +33,10 @@
 
 
             <main class="col-lg-12">
-                <div class="woocommerce-message">
-                    "Premium quality" removed. <a href="#">Undo?</a>
-                </div>
-                @if(count($cart) > 0)
+                {{--<div class="woocommerce-message">--}}
+                    {{--"Premium quality" removed. <a href="#">Undo?</a>--}}
+                {{--</div>--}}
+                @if($cart && count($cart) > 0)
                     <form class="woocommerce-cart-form" action="http://webdesign-finder.com/" method="post">
 
                         <table class="shop_table shop_table_responsive cart">
@@ -58,7 +58,7 @@
                             <tr class="cart_item">
 
                                 <td class="product-remove">
-                                    <a href="{{ route('remove_item', $item['id'])}}" class="remove" aria-label="Remove this item" data-product_id="73" data-product_sku="">×</a>
+                                    <a href="{{ route('remove_item', $item['id'])}}" class="removed" aria-label="Remove this item" data-product_id="{{$item['id']}}" data-product_sku="">×</a>
                                 </td>
 
                                 <td class="product-thumbnail">
@@ -75,15 +75,12 @@
                                 </td>
 
                                 <td class="product-price" data-title="Price">
-												<span class="amount">
-													<span>&#8358;</span>
-                                                    {{ number_format($item['price'])}}
-												</span>
+                                    <span>&#8358;</span> <span id="price{{ $item['id']}}"  class="amount price">{{ $item['price']}}</span>
                                 </td>
 
                                 <td class="product-quantity" data-title="Quantity">
                                     <div class="quantity">
-                                        <input type="number" class="input-text qty text" step="1" min="0" max="500" name="cart[qty]" value="1" title="Qty" size="4">
+                                        <input type="number" id="qty" class="input-text qty text" step="1" min="0" max="500" data-update-id="{{ $item['id']}}" name="cart[qty]" value="{{ $item['qty']}}" title="Qty" size="4">
                                     </div>
                                     {{--<div class="quantity">--}}
                                         {{--<input type="button" value="+" class="plus"><i class="fas fa-caret-up"></i>--}}
@@ -92,8 +89,8 @@
                                 </td>
 
                                 <td class="product-subtotal" data-title="Total">
-												<span class="amount">
-													<span>$</span>12.00
+												<span  id="subTotal{{ $item['id']}}" class="amount">
+													<span>&#8358;</span>{{ number_format($item['total'])}}
 												</span>
                                 </td>
                             </tr>
@@ -109,7 +106,7 @@
                                         {{--<input type="submit" class="button" name="apply_coupon" value="Apply coupon">--}}
                                     {{--</div>--}}
 
-                                    <input type="submit" class="button" name="update_cart" value="Update cart" disabled="">
+                                    {{--<input type="submit" class="button" name="update_cart" value="Update cart" disabled="">--}}
 
                                 </td>
                             </tr>
@@ -132,9 +129,7 @@
 
                     </form>
 
-                @else
-                    <p>No item in your booking list</p>
-                @endif
+
 
                 <section class="related products">
                     <div class="cart_totals ">
@@ -148,18 +143,22 @@
                             <tr class="cart-subtotal">
                                 <th>Subtotal</th>
                                 <td data-title="Subtotal">
-                                    <span class="amount">
-                                        <span>$</span>45.00
+                                    <span id="subtotal" class="amount">
+                                        <span>&#8358;</span>{{number_format($subtotal)}}
+
                                     </span>
+
                                 </td>
                             </tr>
 
                             <tr class="cart-subtotal">
                                 <th>Delivery Fee</th>
                                 <td data-title="Subtotal">
-                                    <span class="amount">
-                                        <span>&#8358;</span>1000
+                                    <span id="delivery_fee" class="amount">
+                                        <span>&#8358;</span>{{number_format($delivery_fee)}}
+
                                     </span>
+
                                 </td>
                             </tr>
 
@@ -168,9 +167,9 @@
                                 <th>Total</th>
                                 <td data-title="Total">
                                     <strong>
-                        <span class="amount">
-                            <span>$</span>45.00
-                        </span>
+                                <span id="totalAmt" class="amount">
+                                    <span>&#8358;</span>{{number_format($total)}}
+                                </span>
                                     </strong>
                                 </td>
                             </tr>
@@ -178,6 +177,8 @@
 
                             </tbody>
                         </table>
+
+
 
                         <div class="wc-proceed-to-checkout">
 
@@ -189,7 +190,9 @@
                     </div>
 
                 </section>
-
+                @else
+                    <p>There is no item in your cart</p>
+                @endif
 
             </main>
 
@@ -199,3 +202,16 @@
     </div>
 </section>
 @endsection
+@section('style-section')
+    <style>
+        .price{
+            display: inline !important;
+            font-weight: 700;
+        }
+        .product-price >span {
+            color: #00929E !important;
+            font-weight: 700;
+        }
+    </style>
+
+    @endsection

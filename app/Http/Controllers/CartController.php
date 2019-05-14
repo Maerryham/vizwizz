@@ -19,9 +19,10 @@ class CartController extends Controller
                     $cart = (session()->get('cart'));
                     $cart[$product_id] = [
                         'image_link' => $product->image_link,
-                        'image' => $product->image,
                         'price' => $product->price,
                         'title' => $product->title,
+                        'qty' => 1,
+                        'total' => $product->price * 1,
                         'id' => $product->id
                     ];
 
@@ -34,9 +35,11 @@ class CartController extends Controller
                 session(['cart' => [
                     $product_id => [
                         'image_link' => $product->image_link,
-                        'image' => $product->image,
+
                         'price' => $product->price,
                         'title' => $product->title,
+                        'qty' => 1,
+                        'total' => $product->price * 1,
                         'id' => $product->id
                     ]
                 ]
@@ -52,7 +55,7 @@ class CartController extends Controller
                     'status' => false,
                     'count' => $counter,
                     'cart' => $cart,
-                    'message' => "{$product->title} is already in your cart"
+                    'message' => "{$product->title} is already in your cart <a href='shopping-cart' class='btn btn-info'>View Cart</a>"
                 ], 200);
             }
             $cart = (session()->get('cart'));
@@ -69,4 +72,24 @@ class CartController extends Controller
         session()->forget("cart.{$product_id}");
         return redirect()->route('shopping-cart');
     }
+    public function updateAllCart(Request $request){
+        $product_id = request('product_id');
+        $newqty = request('newqty');
+//        $product_id = 2;
+//        $newqty = 8;
+
+        $items = session()->get('cart');
+
+        foreach ($items as &$item) {
+            if ($item['id'] == $product_id) {
+                $item['qty'] = $newqty;
+                $item['total'] = $item['price'] * $newqty;
+            }
+        }
+
+        session()->put('cart', $items);
+        $cart = (session()->get('cart'));
+        return response()->json(['status' => true,  'message' => "Your Cart has been updated",'cart' => $cart]);
+    }
+
 }

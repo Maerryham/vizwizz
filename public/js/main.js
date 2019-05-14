@@ -73,6 +73,7 @@
 
             }// > 991
         }); //sf-menu each
+
     } //menuHideExtraElements
 
     function initMegaMenu(timeOut) {
@@ -723,9 +724,9 @@
         });
 
         //toTop
-        if ($().UItoTop) {
-            $().UItoTop({easingType: 'easeInOutQuart'});
-        }
+        // if ($().UItoTop) {
+        //     $().UItoTop({easingType: 'easeInOutQuart'});
+        // }
 
         //parallax
         if ($().parallax) {
@@ -819,18 +820,38 @@
 
             //sending form data to PHP server if fields are not empty
             var request = $form.serialize();
-            var ajax = jQuery.post("contact-form.php", request)
-                .done(function (data) {
-                    $($form).find('[type="submit"]').attr('disabled', false).parent().append('<div class="contact-form-respond color-main mt-20">' + data + '</div>');
-                    //cleaning form
-                    var $formErrors = $form.find('.form-errors');
-                    if (!$formErrors.length) {
-                        $form[0].reset();
-                    }
-                })
-                .fail(function (data) {
-                    $($form).find('[type="submit"]').attr('disabled', false).blur().parent().append('<div class="contact-form-respond color-main mt-20">Mail cannot be sent. You need PHP server to send mail.</div>');
-                })
+
+            let info_box = document.querySelector('.info-box');
+            $.ajax({
+                url: "/login",
+                method:'POST',
+                headers: {
+                    // 'content-type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').attributes['content'].value
+                },
+                data: request,
+                success: function (response){
+                    console.log('successful');
+                    show(info_box, 1000);
+                    info_box.innerHTML = 'You are logged in';
+                    hide(info_box, 5000);
+                    // refresh();
+                    // location.reload().delay(4000);
+                    setTimeout(function() {
+                        location.reload();
+                    }, 4000);
+                    // if(response.status){
+
+                    // }
+                },
+                error: function (response){
+                    console.log(response.error);
+                    show(info_box, 1000);
+                    info_box.innerHTML = 'Please check your credentials and retry';
+                    hide(info_box, 5000);
+
+                }
+            })
         });
 
 
@@ -876,20 +897,76 @@
                 })
         });
 
-        //MailChimp subscribe form processing
-        $('.signup').on('submit', function (e) {
+        //Newsletter subscribe form processing
+        $('.newsletter').on('submit', function (e) {
             e.preventDefault();
+
             var $form = $(this);
-            // update user interface
-            $form.find('.response').html('Adding email address...');
-            // Prepare query string and send AJAX request
-            jQuery.ajax({
-                url: 'mailchimp/store-address.php',
-                data: 'ajax=true&email=' + escape($form.find('.mailchimp_email').val()),
-                success: function (msg) {
-                    $form.find('.response').html(msg);
+            var request = $form.serialize();
+
+
+            let info_box = document.querySelector('.info-box');
+            $.ajax({
+                url: "/newsletter/subscribe",
+                method:'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').attributes['content'].value
+                },
+                data: request,
+                success: function (response){
+                    $form.find('.response').html(response.message);
+                    console.log('successful');
+                    show(info_box, 1000);
+                    info_box.innerHTML = response.message;
+                    hide(info_box, 5000);
+
+
+                },
+                error: function (response){
+                    console.log(response.message);
+                    show(info_box, 1000);
+                    info_box.innerHTML = response.message;
+                    hide(info_box, 5000);
+
                 }
-            });
+            })
+
+        });
+
+        $('.group-bookings').on('submit', function (e) {
+            e.preventDefault();
+
+            var $form = $(this);
+            var request = $form.serialize();
+
+
+            let info_box = document.querySelector('.info-box');
+            $.ajax({
+                url: "/group-bookings/book",
+                method:'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').attributes['content'].value
+                },
+                data: request,
+                success: function (response){
+                    $form.find('.response').html(response.message);
+                    console.log('successful');
+                    show(info_box, 1000);
+                    info_box.innerHTML = response.message;
+                    hide(info_box, 5000);
+                    $form.prepend('<div class="alert alert-success">'+response.message+'</div>')
+
+                },
+                error: function (response){
+                    console.log(response.message);
+                    show(info_box, 1000);
+                    info_box.innerHTML = response.message;
+                    hide(info_box, 5000);
+                    $form.prepend('<div class="alert alert-danger">'+response.message+'</div>')
+
+                }
+            })
+
         });
 
         //twitter
@@ -929,7 +1006,7 @@
                 $thisA.addClass('selected');
             });
         }
-
+        $("body").removeClass('modal-open');
     }
 
 //function that initiating template plugins on window.load event
@@ -937,6 +1014,8 @@
         //////////////
         //flexslider//
         //////////////
+
+
         if ($().flexslider) {
             var $introSlider = $(".page_slider .flexslider");
             $introSlider.each(function (index) {
@@ -1131,11 +1210,12 @@
             var $owl1 = jQuery(this);
             var $owl2 = $owl1.next('.testimonials-owl-content');
 
-            // $owl1.on('click', '.owl-item', function(e) {
-            //   var carousel = $owl1.data('owl.carousel');
-            //   e.preventDefault();
-            //   carousel.to(carousel.relative(jQuery(this).index()));
-            // })
+            $owl1.on('click', '.owl-item', function(e) {
+              var carousel = $owl1.data('owl.carousel');
+              e.preventDefault();
+              carousel.to(carousel.relative(jQuery(this).index()));
+            })
+            $('.modal').find('#btnClose').click();
             $owl2.on('change.owl.carousel', function (event) {
                 if (event.namespace && event.property.name === 'position') {
                     var target = event.relatedTarget.relative(event.property.value, true);
@@ -1242,12 +1322,12 @@
                 if (!$window.scrollTop()) return false;
             });
 
-            $header.affix({
-                offset: {
-                    top: headerOffset,
-                    bottom: -10
-                }
-            });
+            // $header.affix({
+            //     offset: {
+            //         top: headerOffset,
+            //         bottom: -10
+            //     }
+            // });
         }
 
         //aside affix
@@ -1502,21 +1582,6 @@
 
         });
 
-        if ( getCookie('enter') != 'true' )
-        {
-            setTimeout(function(){
-                $("body").addClass('modal-open');
-                $("#years").show();
-            }, 500)
-        }
-
-        function getCookie(name) {
-            var matches = document.cookie.match(new RegExp(
-                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-            ));
-            return matches ? decodeURIComponent(matches[1]) : undefined;
-        }
-        // localStorage.setItem("bgColor","green");
 
         // $(".btn-yes").on('click', function(e){
         //     e.preventDefault();
@@ -1598,7 +1663,9 @@
         //SHOP///
         /////////
 
-        $('.remove').html('<i class="far fa-trash-alt"></i>');
+        $('.remove').html('<i class="far fa-trash-alt remove-from-cart"></i>');
+        $('.removed').html('<i class="far fa-trash-alt remove-from-cart"></i>');
+        $(".dropdown-menu ").click(function() { window.location = $(this).find("a").attr("href"); return false; });
 
         var className = $('.products-selection').parent().attr('class');
         $('.products-selection .toggle_view .full').on('click', function (e) {
@@ -1651,14 +1718,23 @@
 
         $('.plus, .minus').on('click', function (e) {
             var numberField = $(this).parent().find('[type="number"]');
+            // var priceField = $(this).parent().parent().parent().find('.product-price').find('.price');
+            // var amountField = $(this).parent().parent().parent().find('.product-subtotal').find('.amount');
+
             var currentVal = numberField.val();
             var sign = $(this).val();
             if (sign === '-') {
                 if (currentVal > 1) {
                     numberField.val(parseFloat(currentVal) - 1);
+                    let newqty = parseFloat(currentVal) -1;
+                    let productId =  parseFloat(numberField.attr('data-update-id'));
+                    updateCart(productId, newqty);
                 }
             } else {
                 numberField.val(parseFloat(currentVal) + 1);
+                let newqty = parseFloat(currentVal) +1;
+                let productId =  parseFloat(numberField.attr('data-update-id'));
+                updateCart(productId, newqty);
             }
         });
 
@@ -1682,7 +1758,7 @@
         });
 
 
-        //remove product from cart - only for HTML
+        // remove product from cart - only for HTML
         $('a.remove').on('click', function (e) {
             e.preventDefault();
             $(this).closest('tr, .media').remove();
@@ -1807,10 +1883,13 @@
     $(function () {
         documentReadyInit();
         initGoogleMap();
+
     });
 
     $window.on('load', function () {
         windowLoadInit();
+
+
     }); //end of "window load" event
 
     $window.on('resize', function () {
@@ -1904,5 +1983,41 @@
         }
 
     });
+
+    $(document).ready(function() {
+
+        var toggleAffix = function(affixElement, scrollElement, wrapper) {
+
+            var height = affixElement.outerHeight(),
+                top = wrapper.offset().top;
+
+            if (scrollElement.scrollTop() >= top){
+                wrapper.height(height);
+                affixElement.addClass("affix");
+            }
+            else {
+                affixElement.removeClass("affix");
+                wrapper.height('auto');
+            }
+
+        };
+
+
+        $('[data-toggle="affix"]').each(function() {
+            var ele = $(this),
+                wrapper = $('<div></div>');
+
+            ele.before(wrapper);
+            $(window).on('scroll resize', function() {
+                toggleAffix(ele, $(this), wrapper);
+            });
+
+            // init
+            toggleAffix(ele, $(window), wrapper);
+        });
+
+    });
+
 //end of IIFE function
 })(jQuery);
+

@@ -26,4 +26,18 @@ class Product extends Model
     {
         return $this->belongsTo('App\Brand');
     }
+
+    public static function product_counter($brand_id){
+        $product = Product::where('brand_id', $brand_id)->get();
+        $count = count($product);
+//        dd($count);
+        return $count;
+    }
+
+    public static function category_product_counter($category_id){
+        $product = Product::where('category_id', $category_id)->get();
+        $count = count($product);
+//        dd($count);
+        return $count;
+    }
 }
